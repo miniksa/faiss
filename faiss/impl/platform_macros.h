@@ -89,7 +89,11 @@ inline int __builtin_clzll(uint64_t x) {
 #define __m256i_u __m256i
 
 // MSVC defines _mm_prefetch to only accept (const char*) pointers. Use a cast to ensure those defined for GCC will fit. (see winnt.h)
-#define _mm_prefetch(a, b) _mm_prefetch((const char*)(a), b)
+// We'll only redefine it if PreFetchCacheLine is already defined to avoid this colliding with another import of winnt.h.
+// Also note that macro has the parameters backwards in winnt.h from what you may expect.
+#ifdef PreFetchCacheLine
+#define _mm_prefetch(a, b) PreFetchCacheLine(b, a)
+#endif
 
 #define FAISS_ALWAYS_INLINE __forceinline
 
