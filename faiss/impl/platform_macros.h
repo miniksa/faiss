@@ -88,6 +88,9 @@ inline int __builtin_clzll(uint64_t x) {
 // MSVC does not define __m256i_u and instead unions the unsigned types into __m256i (see immintrin.h)
 #define __m256i_u __m256i
 
+// MSVC defines _mm_prefetch to only accept (const char*) pointers. Use a cast to ensure those defined for GCC will fit. (see winnt.h)
+#define _mm_prefetch(a, b) _mm_prefetch((const char*)(a), b)
+
 #define FAISS_ALWAYS_INLINE __forceinline
 
 #else
