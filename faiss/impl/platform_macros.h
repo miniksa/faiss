@@ -82,6 +82,12 @@ inline int __builtin_clzll(uint64_t x) {
 #define __F16C__ 1
 #endif
 
+// MSVC does not define __m128i_u and instead unions the unsigned types into __m128i (see emmintrin.h)
+#define __m128i_u __m128i
+
+// MSVC does not define __m256i_u and instead unions the unsigned types into __m256i (see immintrin.h)
+#define __m256i_u __m256i
+
 #define FAISS_ALWAYS_INLINE __forceinline
 
 #else
